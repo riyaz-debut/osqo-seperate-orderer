@@ -1,0 +1,2 @@
+Committed chaincode definition for chaincode 'osqo-chaincode' on channel 'osqo-channel':
+Version: 1.0, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Approvals: [bcpMSP: true, brokerMSP: true, espMSP: true, osqoMSP: true]

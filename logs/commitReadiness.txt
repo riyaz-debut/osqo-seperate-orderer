@@ -1,0 +1,8 @@
+{
+	"approvals": {
+		"bcpMSP": true,
+		"brokerMSP": true,
+		"espMSP": true,
+		"osqoMSP": true
+	}
+}

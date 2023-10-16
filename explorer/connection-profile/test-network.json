@@ -1,0 +1,48 @@
+{
+	"name": "osqo-osqo",
+	"version": "1.0.0",
+	"client": {
+		"tlsEnable": true,
+		"adminCredential": {
+			"id": "osqoadmin",
+			"password": "osqo@dmin."
+		},
+		"enableAuthentication": true,
+		"organization": "osqoMSP",
+		"connection": {
+			"timeout": {
+				"peer": {
+					"endorser": "300"
+				},
+				"orderer": "300"
+			}
+		}
+	},
+	"channels": {
+		"osqo-channel": {
+			"peers": {
+				"peer0.osqo.osqo.com": {}
+			}
+		}
+	},
+	"organizations": {
+		"osqoMSP": {
+			"mspid": "osqoMSP",
+			"adminPrivateKey": {				
+				"path": "/tmp/crypto/keystore-file/osqo-key"
+			},
+			"peers": ["peer0.osqo.osqo.com"],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/osqo.osqo.com/users/Admin@osqo.osqo.com/msp/signcerts/cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"peer0.osqo.osqo.com": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/osqo.osqo.com/peers/peer0.osqo.osqo.com/tls/ca.crt"
+			},
+			"url": "grpcs://peer0.osqo.osqo.com:11051"
+		}
+	}
+}

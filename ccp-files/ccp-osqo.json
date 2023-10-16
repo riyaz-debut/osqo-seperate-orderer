@@ -1,0 +1,60 @@
+{
+    "name": "${ORG}-osqo",
+    "version": "1.0.0",
+    "client": {
+        "organization": "${ORG}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "${ORG}": {
+            "mspid": "${ORG}MSP",
+            "peers": [
+                "${PEERNAME1}.${ORG}.osqo.com",
+                "${PEERNAME2}.${ORG}.osqo.com"
+            ],
+            "certificateAuthorities": [
+                "ca.${ORG}.osqo.com"
+            ]
+        }
+    },
+    "peers": {
+        "${PEERNAME1}.${ORG}.osqo.com": {
+            "url": "grpcs://${PEERNAME1}.${ORG}.osqo.com:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "${PEERNAME1}.${ORG}.osqo.com",
+                "hostnameOverride": "${PEERNAME1}.${ORG}.osqo.com"
+            }
+        },   
+        "${PEERNAME2}.${ORG}.osqo.com": {
+            "url": "grpcs://${PEERNAME2}.${ORG}.osqo.com:${P1PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "${PEERNAME2}.${ORG}.osqo.com",
+                "hostnameOverride": "${PEERNAME2}.${ORG}.osqo.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.${ORG}.osqo.com": {
+            "url": "https://ca-${ORG}:${CAPORT}",
+            "caName": "ca-${ORG}",
+            "tlsCACerts": {
+                "pem": ["${CAPEM}"]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

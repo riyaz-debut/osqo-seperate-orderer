@@ -1,0 +1,2 @@
+[31m2022-09-23 13:49:46.079 IST [comm.tls] ClientHandshake -> ERRO 001[0m Client TLS handshake failed after 1.240139ms with error: x509: certificate is valid for orderer0.osqo.osqo.com, localhost, not orderer.osqo.com remoteaddress=127.0.0.1:7050
+[31m2022-09-23 13:49:47.085 IST [comm.tls] ClientHandshake -> ERRO 002[0m Client TLS handshake failed after 3.144216ms with error: x509: certificate is valid for orderer0.osqo.osqo.com, localhost, not orderer.osqo.com remoteaddress=127.0.0.1:7050

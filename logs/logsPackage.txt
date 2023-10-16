@@ -1,0 +1,4 @@
+[31m2023-05-03 10:30:16.893 IST [chaincode.platform.util] func1 -> ERRO 001[0m Visit /hlf-volume/hyperledger-chaincode/osqo-chaincode failed: lstat /hlf-volume/hyperledger-chaincode/osqo-chaincode: no such file or directory
+[34m2023-05-03 10:30:16.894 IST [chaincode.platform.util] WriteFolderToTarPackage -> INFO 002[0m Error walking rootDirectory: lstat /hlf-volume/hyperledger-chaincode/osqo-chaincode: no such file or directory
+[31m2023-05-03 10:30:16.894 IST [chaincode.platform.node] GetDeploymentPayload -> ERRO 003[0m Error writing folder to tar package lstat /hlf-volume/hyperledger-chaincode/osqo-chaincode: no such file or directory
+Error: error getting chaincode bytes: Error writing Chaincode package contents: lstat /hlf-volume/hyperledger-chaincode/osqo-chaincode: no such file or directory

@@ -1,0 +1,4 @@
+[34m2022-09-26 09:41:42.917 IST [chaincodeCmd] ClientWait -> INFO 001[0m txid [9c3b12c4019fe1435325e642d8f42721b7a4aac105652501c6214597e1edebe3] committed with status (VALID) at peer0.osqo.osqo.com:7051
+[34m2022-09-26 09:41:42.967 IST [chaincodeCmd] ClientWait -> INFO 002[0m txid [9c3b12c4019fe1435325e642d8f42721b7a4aac105652501c6214597e1edebe3] committed with status (VALID) at peer0.broker.osqo.com:13051
+[34m2022-09-26 09:41:43.343 IST [chaincodeCmd] ClientWait -> INFO 004[0m txid [9c3b12c4019fe1435325e642d8f42721b7a4aac105652501c6214597e1edebe3] committed with status (VALID) at peer0.bcp.osqo.com:9051
+[34m2022-09-26 09:41:43.343 IST [chaincodeCmd] ClientWait -> INFO 003[0m txid [9c3b12c4019fe1435325e642d8f42721b7a4aac105652501c6214597e1edebe3] committed with status (VALID) at peer0.esp.osqo.com:11051

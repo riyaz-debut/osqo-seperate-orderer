@@ -1,0 +1,2 @@
+[34m2022-08-08 11:17:36.776 UTC 0001 INFO[0m [channelCmd] [34;1mInitCmdFactory[0m -> Endorser and orderer connections initialized
+Error: genesis block file not found open /../channel-artifacts/osqo-channel.block: no such file or directory

@@ -1,0 +1,617 @@
+
+version: '2'
+
+networks:
+  netname:
+    name: osqo-methodbridge
+  
+
+services:
+
+  orderer.osqo.com:
+    container_name: orderer.osqo.com
+    image: hyperledger/fabric-orderer:2.4.4
+    # restart: always
+    # tty: true
+    # stdin_open: true
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=ordererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # - ORDERER_OPERATIONS_LISTENADDRESS=0.0.0.0:17050
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+        - ../system-genesis-file/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer.osqo.com/msp:/var/hyperledger/orderer/msp
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer.osqo.com/tls/:/var/hyperledger/orderer/tls
+
+        - ../data/orderer.osqo.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+    networks:
+      - netname
+
+  
+  orderer2.osqo.com:
+    container_name: orderer2.osqo.com
+    image: hyperledger/fabric-orderer:2.4.4
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=ordererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+        - ../system-genesis-file/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer2.osqo.com/msp:/var/hyperledger/orderer/msp
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer2.osqo.com/tls/:/var/hyperledger/orderer/tls
+        - ../data/orderer2.osqo.com:/var/hyperledger/production/orderer
+    ports:
+      - 8050:7050
+    networks:
+      - netname 
+
+
+  orderer3.osqo.com:
+    container_name: orderer3.osqo.com
+    image: hyperledger/fabric-orderer:2.4.4
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=ordererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+        - ../system-genesis-file/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer3.osqo.com/msp:/var/hyperledger/orderer/msp
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer3.osqo.com/tls/:/var/hyperledger/orderer/tls
+        - ../data/orderer3.osqo.com:/var/hyperledger/production/orderer
+    ports:
+      - 9050:7050
+    networks:
+      - netname       
+
+  
+  orderer4.osqo.com:
+    container_name: orderer4.osqo.com
+    image: hyperledger/fabric-orderer:2.4.4
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=ordererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+        - ../system-genesis-file/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer4.osqo.com/msp:/var/hyperledger/orderer/msp
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer4.osqo.com/tls/:/var/hyperledger/orderer/tls
+        - ../data/orderer4.osqo.com:/var/hyperledger/production/orderer
+    ports:
+      - 10050:7050
+    networks:
+      - netname  
+
+
+  orderer5.osqo.com:
+    container_name: orderer5.osqo.com
+    image: hyperledger/fabric-orderer:2.4.4
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=ordererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+        - ../system-genesis-file/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer5.osqo.com/msp:/var/hyperledger/orderer/msp
+        - ../organizations/ordererOrganizations/osqo.com/orderers/orderer5.osqo.com/tls/:/var/hyperledger/orderer/tls
+        - ../data/orderer5.osqo.com:/var/hyperledger/production/orderer
+    ports:
+      - 11050:7050
+    networks:
+      - netname  
+  
+  peer0.osqo.osqo.com:
+    container_name: peer0.osqo.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer0.osqo.osqo.com
+      - CORE_PEER_ADDRESS=peer0.osqo.osqo.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.osqo.osqo.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.osqo.osqo.com:6051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.osqo.osqo.com:7051
+      - CORE_PEER_LOCALMSPID=osqoMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/osqo.osqo.com/peers/peer0.osqo.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/osqo.osqo.com/peers/peer0.osqo.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer0.osqo.osqo.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 7051:7051
+    networks:
+      - netname
+    depends_on:
+      - couchdb0  
+
+  peer1.osqo.osqo.com:
+    container_name: peer1.osqo.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer1.osqo.osqo.com
+      - CORE_PEER_ADDRESS=peer1.osqo.osqo.com:6051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:6051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.osqo.osqo.com:6052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:6052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.osqo.osqo.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.osqo.osqo.com:6051
+      - CORE_PEER_LOCALMSPID=osqoMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/osqo.osqo.com/peers/peer1.osqo.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/osqo.osqo.com/peers/peer1.osqo.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer1.osqo.osqo.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 6051:6051
+    networks:
+      - netname 
+    depends_on:
+      - couchdb1     
+
+  peer0.bcp.osqo.com:
+    container_name: peer0.bcp.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer0.bcp.osqo.com
+      - CORE_PEER_ADDRESS=peer0.bcp.osqo.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.bcp.osqo.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.bcp.osqo.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.bcp.osqo.com:10051
+      - CORE_PEER_LOCALMSPID=bcpMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/bcp.osqo.com/peers/peer0.bcp.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/bcp.osqo.com/peers/peer0.bcp.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer0.bcp.osqo.com:/var/hyperledger/production      
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 9051:9051
+    networks:
+      - netname
+    depends_on:
+      - couchdb2  
+
+
+  peer1.bcp.osqo.com:
+    container_name: peer1.bcp.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer1.bcp.osqo.com
+      - CORE_PEER_ADDRESS=peer1.bcp.osqo.com:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.bcp.osqo.com:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.bcp.osqo.com:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.bcp.osqo.com:9051
+      - CORE_PEER_LOCALMSPID=bcpMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/bcp.osqo.com/peers/peer1.bcp.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/bcp.osqo.com/peers/peer1.bcp.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer1.bcp.osqo.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 10051:10051
+    networks:
+      - netname  
+    depends_on:
+      - couchdb3  
+
+
+
+  peer0.esp.osqo.com:
+    container_name: peer0.esp.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+ 
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer0.esp.osqo.com
+      - CORE_PEER_ADDRESS=peer0.esp.osqo.com:11051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.esp.osqo.com:11052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.esp.osqo.com:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.esp.osqo.com:12051
+      - CORE_PEER_LOCALMSPID=espMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/esp.osqo.com/peers/peer0.esp.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/esp.osqo.com/peers/peer0.esp.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer0.esp.osqo.com:/var/hyperledger/production      
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 11051:11051
+    networks:
+      - netname
+    depends_on:
+      - couchdb4
+
+
+  peer1.esp.osqo.com:
+    container_name: peer1.esp.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer1.esp.osqo.com
+      - CORE_PEER_ADDRESS=peer1.esp.osqo.com:12051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.esp.osqo.com:12052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.esp.osqo.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.esp.osqo.com:12051
+      - CORE_PEER_LOCALMSPID=espMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/esp.osqo.com/peers/peer1.esp.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/esp.osqo.com/peers/peer1.esp.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer1.esp.osqo.com:/var/hyperledger/production      
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 12051:12051
+    networks:
+      - netname
+    depends_on:
+      - couchdb5    
+
+
+  peer0.broker.osqo.com:
+    container_name: peer0.broker.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer0.broker.osqo.com
+      - CORE_PEER_ADDRESS=peer0.broker.osqo.com:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.broker.osqo.com:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.broker.osqo.com:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.broker.osqo.com:14051
+      - CORE_PEER_LOCALMSPID=brokerMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb6:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/broker.osqo.com/peers/peer0.broker.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/broker.osqo.com/peers/peer0.broker.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer0.broker.osqo.com:/var/hyperledger/production      
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 13051:13051
+    networks:
+      - netname
+    depends_on:
+      - couchdb6  
+
+  peer1.broker.osqo.com:
+    container_name: peer1.broker.osqo.com
+    image: hyperledger/fabric-peer:2.4.4
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=osqo-methodbridge
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_TLS_ENABLED=true
+      
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - CORE_PEER_ID=peer1.broker.osqo.com
+      - CORE_PEER_ADDRESS=peer1.broker.osqo.com:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.broker.osqo.com:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.broker.osqo.com:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.broker.osqo.com:13051
+      - CORE_PEER_LOCALMSPID=brokerMSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb7:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/broker.osqo.com/peers/peer1.broker.osqo.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/broker.osqo.com/peers/peer1.broker.osqo.com/tls:/etc/hyperledger/fabric/tls
+        - ../../network-data/peer1.broker.osqo.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 14051:14051
+    networks:
+      - netname  
+    depends_on:
+      - couchdb7     
+
+
+  couchdb0:
+    container_name: couchdb0
+    image: couchdb:3.1.1
+
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "5984:5984"
+    networks:
+      - netname
+
+  couchdb1:
+    container_name: couchdb1
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "6984:5984"
+    networks:
+      - netname   
+
+  couchdb2:
+    container_name: couchdb2
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "7984:5984"
+    networks:
+      - netname       
+
+  couchdb3:
+    container_name: couchdb3
+    image: couchdb:3.1.1
+
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "8984:5984"
+    networks:
+      - netname
+
+  couchdb4:
+    container_name: couchdb4
+    image: couchdb:3.1.1
+
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "9984:5984"
+    networks:
+      - netname
+
+  couchdb5:
+    container_name: couchdb5
+    image: couchdb:3.1.1
+
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "10984:5984"
+    networks:
+      - netname 
+
+  couchdb6:
+    container_name: couchdb6
+    image: couchdb:3.1.1
+
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "11984:5984"
+    networks:
+      - netname 
+
+  couchdb7:
+    container_name: couchdb7
+    image: couchdb:3.1.1
+
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "12984:5984"
+    networks:
+      - netname               
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools:latest
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=INFO
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations
+        - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+        - ../channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    depends_on:
+      - orderer.osqo.com
+      - orderer2.osqo.com
+      - orderer3.osqo.com
+      - orderer4.osqo.com
+      - orderer5.osqo.com
+      - peer0.osqo.osqo.com
+      - peer1.osqo.osqo.com
+      - peer0.bcp.osqo.com
+      - peer1.bcp.osqo.com
+      - peer0.esp.osqo.com
+      - peer1.esp.osqo.com
+      - peer0.broker.osqo.com
+      - peer1.broker.osqo.com
+    networks:
+      - netname

@@ -1,0 +1,101 @@
+{
+    "machines": [
+        {
+            "name": "osqo",
+            "ip": "127.0.0.1",
+            "ports": {
+                "peer0_port":11051,
+                "peer1_port":12051,
+                "orderer_1_port":11050    
+            },
+            "couchDbCreds":{
+                "couch_peer1":{
+                    "user_name":"osqo1Admin",
+                    "password":"osqo1Adminpw"
+                },
+                "couch_peer2":{
+                    "user_name":"osqo2Admin",
+                    "password":"osqo2Adminpw"
+                }
+               
+            }
+        },
+        {
+            "name": "bcp",
+            "ip": "127.0.0.1",
+            "ports": {
+                "peer0_port":13051,
+                "peer1_port":14051,
+                "orderer_1_port":12050
+                
+            },
+            "couchDbCreds":{
+                "couch_peer1":{
+                    "user_name":"bcp1Admin",
+                    "password":"bcp1Adminpw"
+                },
+                "couch_peer2":{
+                    "user_name":"bcp2Admin",
+                    "password":"bcp2Adminpw"
+                }
+               
+            }
+        },
+        {
+            "name": "esp",
+            "ip": "127.0.0.1",
+            "ports": {
+                "peer0_port":15051,
+                "peer1_port":16051,
+                "orderer_1_port":13050
+                
+            },
+            "couchDbCreds":{
+                "couch_peer1":{
+                    "user_name":"esp1Admin",
+                    "password":"esp1Adminpw"
+                },
+                "couch_peer2":{
+                    "user_name":"esp2Admin",
+                    "password":"esp2Adminpw"
+                }
+               
+            }
+        },
+        {
+            "name": "broker",
+            "ip": "127.0.0.1",
+            "ports": {
+                "peer0_port":17051,
+                "peer1_port":18051,
+                "orderer_1_port":14050
+                
+            },
+            "couchDbCreds":{
+                "couch_peer1":{
+                    "user_name":"broker1Admin",
+                    "password":"broker1Adminpw"
+                },
+                "couch_peer2":{
+                    "user_name":"broker2Admin",
+                    "password":"broker2Adminpw"
+                }
+               
+            }
+        },
+        {
+            "name": "sdk",
+            "ip": "127.0.0.1",
+            "port":3000
+        },
+        {
+            "name": "explorer",
+            "ip": "127.0.0.1",
+            "port":80,
+            "user_name":"osqoadmin3",
+            "password":"osqo@dmin."
+
+        }                         
+    ]
+}    
+
